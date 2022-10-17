@@ -1,0 +1,44 @@
+{% extends 'main_full.html' %}
+{% load static %}
+
+{% block title %}Home page{% endblock title %}
+
+{% block mainnavhomeactive %}active{% endblock mainnavhomeactive %}
+{% block submenu %}
+  <a class="nav-link active mx-1" aria-current="page" href="#" role="button">home - default</a>
+  <a class="nav-link active mx-1" href="#">home - default</a>
+{% endblock submenu %}
+
+{% block mainfullcontent %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+  <img src="{% static 'images/logo.png' %}" class="img-fluid" alt="DjangoX logo"/>
+  <p class="lead">A Django starter project with batteries.</p>
+</div>
+
+<!-- Sample Colors -->
+<div class="carousel carousel-slider">
+  <a class="carousel-item" href="#one!"><img src="https://lorempixel.com/800/400/food/1"></a>
+  <a class="carousel-item" href="#two!"><img src="https://lorempixel.com/800/400/food/2"></a>
+  <a class="carousel-item" href="#three!"><img src="https://lorempixel.com/800/400/food/3"></a>
+  <a class="carousel-item" href="#four!"><img src="https://lorempixel.com/800/400/food/4"></a>
+</div>
+<img src="https://lorempixel.com/800/400/food/1">
+<div class="row">
+  <div class='col s3'><span style="background: #30231d; color: #f6f1ed;">#30231d</span></div>
+  <div class='col s3'><span style="background: #6a5750;">#6a5750</span></div>
+  <div class='col s3'><span style="background: #f6f1ed;">#f6f1ed</span></div>
+  <div class='col s3'><span style="background: #b5a397;">#b5a397</span></div>
+</div>
+
+<div class="p-3 mb-2 bg-primary bg-gradient text-white">.bg-primary</div>
+<div class="p-3 mb-2 bg-secondary bg-gradient text-white">.bg-secondary</div>
+<div class="p-3 mb-2 bg-success bg-gradient text-white">.bg-success</div>
+<div class="p-3 mb-2 bg-danger bg-gradient text-white">.bg-danger</div>
+<div class="p-3 mb-2 bg-warning bg-gradient text-dark">.bg-warning</div>
+<div class="p-3 mb-2 bg-info bg-gradient text-dark">.bg-info</div>
+<div class="p-3 mb-2 bg-light bg-gradient text-dark">.bg-light</div>
+<div class="p-3 mb-2 bg-dark bg-gradient text-white">.bg-dark</div>
+<div class="p-3 mb-2 bg-body bg-gradient text-dark">.bg-body</div>
+<div class="p-3 mb-2 bg-white bg-gradient text-dark">.bg-white</div>
+<div class="p-3 mb-2 bg-transparent bg-gradient text-dark">.bg-transparent</div>
+{% endblock mainfullcontent %}

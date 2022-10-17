@@ -1,0 +1,208 @@
+{% extends 'middle.html' %}
+{% block title %}
+My List of Todos
+{% endblock %}
+{% load static %}
+
+
+{% block mainnavtodoactive %}active{% endblock mainnavtodoactive %}
+
+{% block breadcrumb %}
+<!-- Breadcrumb -->
+<div class="container-fluid px-5">
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="{% url 'todo:home' %}">Home</a></li>
+		<li class="breadcrumb-item active" aria-current="page">{{user.username}}'s To-Do List</b></li>
+	</ol>
+</nav>
+</div>
+
+{% endblock breadcrumb %}
+
+
+{% block middlecontent %}
+
+<div class="row justify-content-center">
+	<div class="col-12 py-3">
+
+		<div class="card">
+			{% if todos %}
+			<div class="card-header">
+				My List of Todos
+			</div>
+			<div class="card-body">
+				<table class="table table-light table-striped">
+					<thead>
+						<tr>
+							<th scope="col">
+								<div class="btn-group">
+									<a href="{% url 'todo:todo-orderby' 'TITLE' %}" role="button" class="btn btn-primary">
+										Title
+									</a>
+									<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+										<span class="visually-hidden">Toggle Dropdown</span>
+									</button>
+									<ul class="dropdown-menu">
+										<li>
+											<p class="px-2">Order by:</P>
+										</li>
+										<li><a class="dropdown-item" href="{% url 'todo:todo-orderby' 'TITLE' True %}">A->Z</a></li>
+										<li><a class="dropdown-item" href="{% url 'todo:todo-orderby' 'TITLE' False %}">Z->A</a></li>
+									</ul>
+								</div>
+
+							</th>
+							<th scope="col">
+								<div class="btn-group">
+									<a href="{% url 'todo:todo-orderby' 'DESCRIPTION' %}" role="button" class="btn btn-primary">
+										Description
+									</a>
+									<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+										<span class="visually-hidden">Toggle Dropdown</span>
+									</button>
+									<ul class="dropdown-menu">
+										<li>
+											<p class="px-2">Order by:</P>
+										</li>
+										<li><a class="dropdown-item" href="{% url 'todo:todo-orderby' 'DESCRIPTION' True %}">A->Z</a></li>
+										<li><a class="dropdown-item" href="{% url 'todo:todo-orderby' 'DESCRIPTION' False %}">Z->A</a></li>
+									</ul>
+								</div>
+							</th>
+							<th scope="col">
+								<div class="btn-group">
+									<a href="{% url 'todo:todo-orderby' 'COMPLETE' %}" role="button" class="btn btn-primary">
+										Completed
+									</a>
+									<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+										<span class="visually-hidden">Toggle Dropdown</span>
+									</button>
+									<ul class="dropdown-menu">
+										<li>
+											<p class="px-2">Order by:</P>
+										</li>
+										<li><a class="dropdown-item" href="{% url 'todo:todo-orderby' 'COMPLETE' True %}">No->Yes</a></li>
+										<li><a class="dropdown-item" href="{% url 'todo:todo-orderby' 'COMPLETE' False %}">Yes->No</a></li>
+										<li><hr class="dropdown-divider"></li>
+										<li>
+											<p class="px-2">Filter by:</P>
+										</li>
+										<li>
+											<a href="{% url 'todo:todo-filterview' 'ALL' %}" class="dropdown-item" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on top">
+											All {{all_count}}</a>
+										</li>
+										<li>
+											<a href="{% url 'todo:todo-filterview' 'YES' %}" class="dropdown-item" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on top">
+												Completed <span class="badge rounded-pill bg-success">{{completed_count}}</span>
+											</a>
+										</li>
+										<li>
+											<a href="{% url 'todo:todo-filterview' 'NO' %}" class="dropdown-item" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on top">
+												Remaining <span class="badge rounded-pill bg-primary">{{incomplete_count}}</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+
+							</th>
+							<th scope="col">Actions</th>
+						</tr>
+					</thead>
+					<tbody class="table-group-divider">
+						{% for todo in todos %}
+						<tr>
+							<th scope="row">
+								<a href='{% url 'todo:todo' todo.pk %}'>
+								{{todo.title}}
+								</a>
+								</th>
+								<td>{{todo.description}}</td>
+								<td>
+								{% if todo.is_completed %}
+								YES <i class="check icon green"></i>
+								{% else %}
+								NO
+								{% endif %}
+								</td>
+								<td>
+								<a href={% url 'todo:todo' todo.pk  %} class="btn btn-primary mx-2" role="button">
+									<i class="bi bi-eye-fill"></i> View
+								</a>
+								<a href={% url 'todo:todo-edit' todo.pk  %} class="btn btn-primary mx-2" role="button">
+									<i class="bi bi-pen-fill"></i> Edit
+								</a>
+								<a href={% url 'todo:todo-delete' todo.pk  %} class="btn btn-danger mx-2" role="button">
+									<i class="bi bi-trash-fill"></i> Delete
+								</a>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+
+				</table>
+			</div>
+			<div class="card-footer">
+				<div class="container">
+					<div class="row">
+						<div class="col-3">
+							<a class="btn btn-success" href="{% url 'todo:create-todo' %}" role="button">
+							Add new</a>
+						</div>
+						<div class="col-9 d-flex justify-content-end">
+							<a href="{% url 'todo:todo-filterview' 'ALL' %}" role="button" class="btn btn-primary mx-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on top">
+								All <span class="badge bg-secondary">{{all_count}}</span>
+							</a>
+
+							<a href="{% url 'todo:todo-filterview' 'NO' %}" role="button" class="btn btn-primary mx-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on top">
+								Remaining <span class="badge bg-secondary">{{incomplete_count}}</span>
+							</a>
+
+							<a href="{% url 'todo:todo-filterview' 'YES' %}" role="button" class="btn btn-primary mx-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on top">
+								Completed <span class="badge bg-secondary">{{completed_count}}</span>
+							</a>
+						</div>
+					</div>
+				</div>
+
+
+
+			</div>
+			{% else %}
+			<div class="card-header">
+				My List of Todos
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">No items yet</h5>
+				<p class="card-text">You can create your first todo now</p>
+			</table>
+			</div>
+			<div class="card-footer">
+				<div class="container">
+					<div class="row">
+						<div class="col-3">
+							<a class="btn btn-success" href="{% url 'todo:create-todo' %}" role="button">
+							Add new</a>
+						</div>
+						<div class="col-9 d-flex justify-content-end">
+							<a href="{% url 'todo:todo-filterview' 'ALL' %}" role="button" class="btn btn-primary mx-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on top">
+								All <span class="badge bg-secondary">{{all_count}}</span>
+							</a>
+
+							<a href="{% url 'todo:todo-filterview' 'NO' %}" role="button" class="btn btn-primary mx-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on top">
+								Remaining <span class="badge bg-secondary">{{incomplete_count}}</span>
+							</a>
+
+							<a href="{% url 'todo:todo-filterview' 'YES' %}" role="button" class="btn btn-primary mx-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on top">
+								Completed <span class="badge bg-secondary">{{completed_count}}</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endif %}
+	</div>
+
+</div>
+</div>
+{% endblock middlecontent %}

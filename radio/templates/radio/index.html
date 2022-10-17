@@ -1,0 +1,83 @@
+{% extends '_radiobase.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid">
+  <!-- Top -->
+  <div class="row p-3 border-bottom border-primary border-3 bg-secondary text-light align-items-center">
+    <div class="col-3">
+      <h1>{% block title %}Site Name{% endblock title %}</h1>
+    </div>
+    <div class="col-1">
+    </div>
+    <div class="col text-end">
+      <h4>UTC: {{ time_utc }}</h3>
+      <h4>Houston: {{ time_amsc }} </h3>
+    </div>
+    <div class="col-1">
+      <h1 class="display-6">
+        <i class="bi bi-bar-chart"></i>
+        <i class="bi bi-bar-chart-fill"></i>
+      </h1>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="row">
+    <div class="col-12">
+      {% block radiocontent %}
+        <p>Default radiocontent...</p>
+      {% endblock radiocontent %}
+    </div>
+  </div>
+</div>
+<!-- Buttons  Bot -->
+<footer class="footer mt-auto py-4 border-top border-primary border-3 bg-secondary align-items-center">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col bg-dark text-light rounded-3 py-3 mx-3">
+        <h1 class="display-4">
+          <i class="bi bi-layout-wtf"></i>
+        </h1>
+        <h4>Home</h4>
+      </div>
+      <div class="col bg-dark text-light rounded-3 py-3 mx-3">
+        <h1 class="display-4">
+          <i class="bi bi-card-image"></i>
+        </h1>
+        <h4>Gallery</h4>
+      </div>
+      <div class="col bg-dark text-light rounded-3 py-3 mx-3">
+        <h1 class="display-4">
+          <i class="bi bi-music-player"></i>
+        <i class="bi bi-music-player-fill"></i>
+      </h1>
+        <h4>Music</h4>
+      </div>
+      <div class="col bg-dark text-light rounded-3 py-3 mx-3">
+        <h1 class="display-4">
+          <i class="bi bi-globe2"></i>
+        </h1>
+        <h4>World News</h4>
+      </div>
+      <div class="col bg-dark text-light rounded-3 py-3 mx-3">
+        <h1 class="display-4">
+          <i class="bi bi-calendar-week"></i>
+          <i class="bi bi-calendar-week-fill"></i>
+        </h1>
+        <h4>Calendar</h4>
+      </div>
+      <div class="col bg-dark text-light rounded-3 py-3 mx-3">
+        <h1 class="display-4">
+          <i class="bi bi-gear-fill"></i>
+          <i class="bi bi-gear"></i>
+        </h1>
+        <h4>Settings</h4>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+{% endblock content %}

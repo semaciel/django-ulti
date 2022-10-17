@@ -1,0 +1,321 @@
+{% extends 'middle.html' %}
+{% load static %}
+{% block title %}Social - Profile{% endblock title %}
+
+{% block style %}
+<!-- <link rel="stylesheet" href="{% static 'social/assets/css/icons.css' %}"> -->
+<!-- <link rel="stylesheet" href="{% static 'social/assets/css/uikit.css' %}"> -->
+<!-- <link rel="stylesheet" href="{% static 'social/assets/css/style.css' %}"> -->
+<!-- <link rel="stylesheet" href="{% static 'social/assets/css/tailwind.css' %}"> -->
+
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+{% endblock style %}
+
+{% block mainnavsocialactive %}active{% endblock mainnavsocialactive %}
+
+{% block submenu %}
+{% endblock submenu %}
+
+{% block breadcrumb %}
+<!-- Breadcrumb -->
+<div class="container-fluid px-5">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'social:index' %}">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Account Setting for <b>{{user.username}}</b></li>
+    </ol>
+  </nav>
+</div>
+
+{% endblock breadcrumb %}
+
+{% block middlecontent %}
+<div class="container-fluid">
+<div class="row">
+  <div class="col text-center">
+    <div class="position-relative">
+      <img src="{% static 'social/images/resources/timeline-1.jpg' %}" class=" h-auto w-100 mx-auto px-0 rounded-5 img-fluid" style="max-height: 10rem; max-width: 1199px;" alt="...">
+      <div class="position-absolute top-50 start-50 translate-middle">
+        <h3 class="text-light">
+          @{{user_profile.user.username}}
+        </h5>
+        <form action="/social/follow" method="POST">
+          {% csrf_token %}
+          <input type="hidden" value="{{user.username}}" name="follower" />
+          <input type="hidden" value="{{user_object.username}}" name="user" />
+
+          {% if user_object.username == user.username %}
+          <!-- <a class="btn btn-primary" href="{% url 'social:settings'%}" role="button">Account Settings</a> -->
+          {% else %}
+          <button class="btn btn-primary" type="submit">{{button_text}}</button>
+          {% endif %}
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+
+<div class="col-md-8">
+  {% for post in user_posts %}
+
+
+  <div class="card mt-3 mx-3">
+    <div class="card-header text-end">
+      <div class='row mt-1 mb-0'>
+
+
+        <div class='col-md-10  text-start'>
+          Posted by <a href="/social/profile/{{post.user}}">@{{post.user}}</a>
+        </div>
+
+        <div class='col-md-2 text-end'>
+          <div class="dropdown">
+            <button class="btn btn-primary btn-sm dropdown-toggle mx-0 px-1 pt-1 pb-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-three-dots"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="{{post.image.url}}" class="dropdown-item flex" download>
+                  <i class="bi bi-cloud-download"></i>
+                  &nbsp;Download
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="bi bi-trash"></i>
+                  &nbsp;Delete Post (NEED FIX)
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="bi bi-trash"></i>
+                  &nbsp;Ban User (NEED FIX)
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+
+      </div>
+
+
+    </div>
+
+    <div class="row g-0">
+      <div class="col-md-4">
+
+        <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal{{post.id}}" data-bs-whatever=""><img src="{{post.image.url}}" style="height: 190px; max-width:190px" class="img-fluid p-3" alt=""></a>
+
+        <div class="modal fade" id="imageModal{{post.id}}" tabindex="-1" aria-labelledby="imageModalLabel{{post.id}}" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-fullscreen-md-down w-25">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="imageModalLabel{{post.id}}"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <img src="{{post.image.url}}" class="w-100" stylealt="">
+              </div>
+              <div class="modal-footer text-muted">
+                Posted: {{post.created_at}}
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      <!-- Vertically centered modal -->
+      <div class="modal-dialog modal-dialog-centered">
+
+      </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title"></h5>
+          <p class="card-text text-center">
+            {{post.caption}}
+          </p>
+          <p class="card-text text-end">
+            <small class="text-muted">Posted: {{post.created_at}}</small>
+          </p>
+        </div>
+      </div>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">comment #1</li>
+      <li class="list-group-item">comment #1</li>
+      <li class="list-group-item">comment #1</li>
+    </ul>
+    <div class="card-footer text-muted">
+      <div class="row">
+        <div class="col text-start">
+          Add comment area (NEED)
+        </div>
+
+        <div class="col text-end">
+          <button type="button" class="btn btn-primary btn-sm text-light">
+            <a href="/social/like-post?post_id={{post.id}}" class="text-light">
+                <i class="bi bi-hand-thumbs-up-fill"></i>
+                {% if post.no_of_likes == 0 %}
+                No likes
+                {% elif post.no_of_likes == 1 %}
+                Liked by {{post.no_of_likes}} person
+                {% else %}
+                Liked by {{post.no_of_likes}} people
+                {% endif %}
+            </a>
+          </button>
+
+
+        </div>
+      </div>
+
+
+
+
+
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="col-md-4">
+  <div class="card text-center mt-3 mx-3">
+    <div class="card-header position-relative">
+
+      <a class="" href="{% url 'social:profile' user %}">
+        <img src="{{user_profile.profile_img.url}}" style="height: 190px; max-width:190px" class="rounded-circle w-auto position-absolute top-0 start-50 translate-middle" alt="">
+      </a>
+
+      <div class="btn-group mt-5">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#uploadPicModal">
+          <i class="bi bi-cloud-upload-fill"></i> Upload Pics
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="uploadPicModal" tabindex="-1" aria-labelledby="uploadPicModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="uploadPicModalLabel">Upload Pics</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body text-center">
+
+                <form action="upload" method="POST" enctype="multipart/form-data" >
+                {% csrf_token %}
+
+                <div>
+                    <input type="file" name="image_upload">
+                    <!-- <a href="#" class="button soft-warning small"> Choose file</a> -->
+                    <textarea class="button soft-warning small" name="caption" placeholder="caption..." ></textarea>
+                    <div class="py-2 text-sm">
+                        Your Image size Must be Maxmium 999MB
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                      <button class="btn btn-primary" type="submit">Upload</button>
+                    </div>
+                </div>
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-sm btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+          <span class="visually-hidden">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="{% url 'social:profile' user %}">Profile</a></li>
+          <li><a class="dropdown-item" href="{% url 'social:settings' %}">Account setting</a></li>
+          <li><a class="dropdown-item" href="{% url 'account_logout' %}">Log Out</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card-body my-0 pt-2 pb-0">
+      <h5 class="card-title">Bio</h5>
+      <p class="card-text">
+        {{user_profile.profile_bio}}
+      </p>
+    </div>
+
+
+    <div class="card-body my-0 pt-2 pb-0">
+      <!-- <h5 class="card-title">Card title           sdfasdfasdfasdfasdf</h5> -->
+      <p class="card-text">
+        <form  class="d-flex" role="search" action="/social/search/" name="username" method="POST">
+          {% csrf_token %}
+          <input  class="form-control me-2" type="search" name="username" placeholder="Search for username.." aria-label="Search">
+          <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+      </p>
+    </div>
+
+    <div class="card-footer text-muted">
+
+        {% if user_post_length == 0 %}
+        No Post
+        {% elif user_post_length == 1 %}
+        {{user_post_length}} Post
+        {% else %}
+        {{user_post_length}} Posts
+        {% endif %}
+
+        --
+
+        {% if user_followers == 0 or user_followers == 1 %}
+        {{user_followers}} follower
+        {% else %}
+        {{user_followers}} followers
+        {% endif %}
+
+        --
+
+        {{user_following}} following
+
+    </div>
+
+  </div>
+
+</div>
+</div>
+</div>
+
+
+
+
+{% endblock middlecontent %}
+
+{% block javascript_custom %}
+<script>
+  const imageModal = document.getElementById('imageModal')
+  imageModal.addEventListener('show.bs.modal', event => {
+    // Button that triggered the modal
+    const button = event.relatedTarget
+    // Extract info from data-bs-* attributes
+    const recipient = button.getAttribute('data-bs-whatever')
+    // If necessary, you could initiate an AJAX request here
+    // and then do the updating in a callback.
+    //
+    // Update the modal's content.
+    const modalTitle = imageModal.querySelector('.modal-title')
+    const modalBodyInput = imageModal.querySelector('.modal-body input')
+
+    modalTitle.textContent = `New message to ${recipient}`
+    modalBodyInput.value = recipient
+  })
+</script>
+<!-- <script src="{% static 'social/assets/js/tippy.all.min.js' %}"></script> -->
+<!-- <script src="{% static 'social/assets/js/jquery-3.3.1.min.js' %}"></script> -->
+<!-- <script src="{% static 'social/assets/js/uikit.js' %}"></script> -->
+<!-- <script src="{% static 'social/assets/js/simplebar.js' %}"></script> -->
+<!-- <script src="{% static 'social/assets/js/custom.js' %}"></script> -->
+
+<!-- <script src="{% static 'social/../../unpkg.com/ionicons%405.2.3/dist/ionicons.js' %}"></script> -->
+{% endblock javascript_custom %}

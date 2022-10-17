@@ -1,0 +1,34 @@
+{% extends "card.html" %}
+{% load django_bootstrap5 %}
+
+{% load i18n %}
+
+{% block title %}Signup{% endblock title %}
+{% block mainnavaccountactive %}active{% endblock mainnavaccountactive %}
+
+
+{% block cardheadercontent %}
+Signup
+{% endblock cardheadercontent %}
+
+
+
+{% block cardbodycontent %}
+<p class="card-text">{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+
+<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+{% endblock cardbodycontent %}
+
+
+
+{% block cardfootercontent %}
+
+  {% trans "Sign Up" as button_text %}
+  {% bootstrap_button button_text button_type="submit" extra_classes="secondaryAction" %}
+</form>
+{% endblock cardfootercontent %}

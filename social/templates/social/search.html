@@ -1,0 +1,40 @@
+
+{% extends 'middle.html' %}
+{% load static %}
+{% block title %}Social - Search{% endblock title %}
+
+{% block style %}
+{% endblock style %}
+
+{% block mainnavsocialactive %}active{% endblock mainnavsocialactive %}
+
+{% block submenu %}
+{% endblock submenu %}
+
+{% block middlecontent %}
+<h4>Results For <span class="fw-semi-bold"><b>{{username}}</b></span></h4>
+
+
+{% for users in username_profile_list %}
+<div class="card text-center">
+<div class="card-header">
+  <a href="/social/profile/{{users.user}}"><b>@{{users.user}}</b></a>
+</div>
+<div class="row g-0">
+    <div class="col-md-2">
+      <img src="{{ user_profile.profile_img.url }}" class="img-fluid" alt="...">
+    </div>
+    <div class="col-md-10">
+      <div class="card-body">
+        <h5 class="card-title">{{users.location}}</h5>
+        <p class="card-text">{{users.bio}}</p>
+      </div>
+    </div>
+  </div>
+
+
+{% endfor %}
+{% endblock middlecontent %}
+
+{% block javascript_custom %}
+{% endblock javascript_custom %}

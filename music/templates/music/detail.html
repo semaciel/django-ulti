@@ -1,0 +1,54 @@
+{% extends 'middle.html' %}
+{% load static %}
+
+{% block title %}Album Detail{% endblock %}
+
+{% block middlecontent %}
+
+{% if error_msg %}
+<p><strong>{{ error_msg }}</strong></p>
+{% endif %}
+
+<h1>{{ album }}</h1>
+ALBUM_LOGO:<img src="{{ album.album_logo }}"/>
+<h2>ALBUM_TITLE:{{ album.album_title }}</h2>
+<h3>ARTIST:{{ album.artist }}</h3>
+<h4>GENRE:{{ album.genre }}</h4>
+
+<hr>
+<h2>Song List:</h2>
+<hr>
+
+<ul>
+{% if album.song_set.all %}
+  {% for song in album.song_set.all %}
+  <li>{{song.song_title}} - {{song.file_type}}</li>
+  {% endfor %}
+{% else %}
+  <li>No songs Found!!</li>
+{% endif %}
+</ul>
+
+
+<form action="{% url 'music:favorite' album.id %}" method="post">
+  {% csrf_token %}
+  {% if album.song_set.all %}
+    {% for song in album.song_set.all %}
+    <input type="radio" id="song{{ forloop.counter }}" name="song" value="{{ song.id }}">
+    <label for="song{{ forloop.counter }}">
+      {{song.song_title}} - {{song.file_type}}
+      {% if song.is_favorite %}
+        <img src="https://mario.wiki.gallery/images/thumb/8/8a/New_Super_Mario_Bros._U_Deluxe_Super_Star.png/200px-New_Super_Mario_Bros._U_Deluxe_Super_Star.png"/>
+      {% else %}
+        <img src="#"/>
+      {% endif %}
+    </label><br>
+    {% endfor %}
+    <input type="submit" value="favorite">
+  {% else %}
+    <h4>No songs Found!!</h4>
+  {% endif %}
+</form>
+
+https://mario.wiki.gallery/images/thumb/8/8a/New_Super_Mario_Bros._U_Deluxe_Super_Star.png/200px-New_Super_Mario_Bros._U_Deluxe_Super_Star.png
+{% endblock middlecontent %}

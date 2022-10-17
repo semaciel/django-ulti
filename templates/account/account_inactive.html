@@ -1,0 +1,18 @@
+{% extends "card.html" %}
+{% load django_bootstrap5 %}
+
+{% load i18n %}
+
+{% block title %}Account Inactive{% endblock title %}
+{% block mainnavaccountactive %}active{% endblock mainnavaccountactive %}
+{% block cardheadercontent %}Account Inactive{% endblock cardheadercontent %}
+
+
+{% block cardbodycontent %}
+<p class="card-text">This account is inactive.</p>
+{% endblock cardbodycontent %}
+
+
+{% block cardfootercontent %}
+&nbsp;
+{% endblock cardfootercontent %}

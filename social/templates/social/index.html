@@ -1,0 +1,324 @@
+
+{% extends 'middle.html' %}
+{% load static %}
+{% block title %}Social - Index{% endblock title %}
+
+
+{% block style %}
+<!-- <link rel="stylesheet" href="{% static 'social/assets/css/icons.css' %}"> -->
+<!-- <link rel="stylesheet" href="{% static 'social/assets/css/uikit.css' %}"> -->
+<!-- <link rel="stylesheet" href="{% static 'social/assets/css/style.css' %}"> -->
+<!-- <link rel="stylesheet" href="{% static 'social/assets/css/tailwind.css' %}"> -->
+
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+{% endblock style %}
+
+{% block mainnavsocialactive %}active{% endblock mainnavsocialactive %}
+
+{% block submenu %}
+{% endblock submenu %}
+
+{% block middlecontent %}
+<div class='row'>
+
+	<div class='col-md-8'>
+		{% if posts %}
+		{% for post in posts reversed %}
+		<div class="card mt-3 mx-3">
+			<!-- style="width: 18rem;" -->
+			<div class="card-header">
+				<div class='row mt-1 mb-0'>
+
+
+					<div class='col-md-10  text-start'>
+						Posted by <a href="/social/profile/{{post.user}}">@{{post.user}}</a>
+					</div>
+
+					<div class='col-md-2 text-end'>
+						<div class="dropdown">
+							<button class="btn btn-primary btn-sm dropdown-toggle mx-0 px-1 pt-1 pb-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<i class="bi bi-three-dots"></i>
+							</button>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="{{post.image.url}}" class="dropdown-item flex" download>
+										<i class="bi bi-cloud-download"></i>
+										&nbsp;Download
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="#"><i class="bi bi-trash"></i>
+										&nbsp;Delete Post (NEED FIX)
+									</a>
+								</li>
+								<li>
+	                <a class="dropdown-item" href="#"><i class="bi bi-trash"></i>
+	                  &nbsp;Ban User (NEED FIX)
+	                </a>
+	              </li>
+							</ul>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+
+
+			<div class="row g-0">
+				<div class="col-md-4">
+
+					<div uk-lightbox>
+						<a href="{{post.image.url}}">
+							<img src="{{post.image.url}}" class="img-fluid p-3" alt="">
+						</a>
+					</div>
+
+				</div>
+
+				<div class="col-md-8">
+					<div class="card-body">
+						<h5 class="card-title"></h5>
+						<p class="card-text text-center">
+							{{post.caption}}
+						</p>
+						<p class="card-text text-end">
+							<small class="text-muted">Posted: {{post.created_at}}</small>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item">comment #1</li>
+				<li class="list-group-item">comment #1</li>
+				<li class="list-group-item">comment #1</li>
+			</ul>
+			<div class="card-footer text-muted">
+				<div class="row">
+					<div class="col text-start">
+						Add comment area (NEED)
+					</div>
+
+					<div class="col text-end">
+						<button type="button" class="btn btn-primary btn-sm text-light">
+							<a href="/social/like-post?post_id={{post.id}}" class="text-light">
+								<i class="bi bi-hand-thumbs-up-fill"></i>
+								{% if post.no_of_likes == 0 %}
+								No likes
+								{% elif post.no_of_likes == 1 %}
+								Liked by {{post.no_of_likes}} person
+								{% else %}
+								Liked by {{post.no_of_likes}} people
+								{% endif %}
+							</a>
+						</button>
+
+
+					</div>
+				</div>
+
+
+
+
+
+			</div>
+		</div>
+
+		{% endfor %}
+		{% else %}
+		<div class="card mt-3 mx-3">
+			<!-- style="width: 18rem;" -->
+			<div class="card-header">
+				<div class='row mt-1 mb-0'>
+
+
+					<div class='col-md-10  text-start'>
+						&nbsp;
+					</div>
+
+					<div class='col-md-2 text-end'>
+						&nbsp;
+					</div>
+
+
+				</div>
+			</div>
+
+
+			<div class="row g-0">
+				<div class="col-md-4">
+
+					<div uk-lightbox>
+						<a href="{{post.image.url}}">
+							<img src="{% static 'images/blank-followers-picture.jpg' %}" class="img-fluid p-3" alt="..."/>
+						</a>
+					</div>
+
+				</div>
+
+				<div class="col-md-8">
+					<div class="card-body">
+						<h5 class="card-title"></h5>
+						<p class="card-text text-center">
+							{{post.caption}}
+							Looks Like you are not following anyone... Search for someone interesting..
+							<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-arrow-down-right" viewBox="0 0 16 16">
+							  <path fill-rule="evenodd" d="M14 13.5a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1 0-1h4.793L2.146 2.854a.5.5 0 1 1 .708-.708L13 12.293V7.5a.5.5 0 0 1 1 0v6z"/>
+							</svg>
+						</p>
+						<p class="card-text text-end">
+							<small class="text-muted">Posted: {{post.created_at}} Now</small>
+						</p>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="card-footer text-muted">
+				<div class="row">
+					<div class="col text-start">
+						&nbsp;
+					</div>
+
+					<div class="col text-end">
+						&nbsp;
+					</div>
+				</div>
+
+
+
+
+
+			</div>
+		</div>
+		{% endif %}
+	</div>
+
+	<div class='col-md-4'>
+
+		<div class="card text-center mt-3 mx-3">
+			<div class="card-header position-relative">
+				<a class="" href="{% url 'social:profile' user %}">
+					<img src="{{user_profile.profile_img.url}}" style="height: 120px; max-width:120px" class="rounded-circle w-auto position-absolute top-0 start-50 translate-middle" alt="">
+				</a>
+				<div class="btn-group mt-5">
+					<!-- Button trigger modal -->
+					<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+						<i class="bi bi-cloud-upload-fill"></i> Upload Pics
+					</button>
+
+					<!-- Modal -->
+					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h1 class="modal-title fs-5" id="exampleModalLabel">Upload Pics</h1>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body text-center">
+
+									<form action="upload" method="POST" enctype="multipart/form-data" >
+										{% csrf_token %}
+
+										<div>
+											<input type="file" name="image_upload">
+											<!-- <a href="#" class="button soft-warning small"> Choose file</a> -->
+											<textarea class="button soft-warning small" name="caption" placeholder="caption..." ></textarea>
+											<div class="py-2 text-sm">
+												Your Image size Must be Maxmium 999MB
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+												<button class="btn btn-primary" type="submit">Upload</button>
+											</div>
+										</div>
+									</form>
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<button type="button" class="btn btn-sm btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+						<span class="visually-hidden">Toggle Dropdown</span>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="{% url 'social:profile' user %}">Profile</a></li>
+						<li><a class="dropdown-item" href="{% url 'social:settings' %}">Account setting</a></li>
+						<li><a class="dropdown-item" href="{% url 'account_logout' %}">Log Out</a></li>
+					</ul>
+				</div>
+			</div>
+
+
+			<div class="card-body my-0 pt-2 pb-0">
+				<!-- <h5 class="card-title">Card title           sdfasdfasdfasdfasdf</h5> -->
+				<p class="card-text">
+					<form  class="d-flex" role="search" action="/social/search/" name="username" method="POST">
+						{% csrf_token %}
+						<input  class="form-control me-2" type="search" name="username" placeholder="Search for username.." aria-label="Search">
+						<button class="btn btn-primary" type="submit">Search</button>
+					</form>
+				</p>
+			</div>
+
+
+			<div class="card-header">
+				Users You Can Follow
+			</div>
+
+
+			<ul class="list-group list-group-flush">
+				{% for suggestion in suggestions_username_profile_list %}
+				<li class="list-group-item">
+					<div class="row g-0">
+						<div class="col-md-3">
+							<a href="/social/profile/{{suggestion.user}}">
+								<img src="{{suggestion.profile_img.url}}" class="img-fluid">
+							</a>
+						</div>
+						<div class="col-md-9">
+							<div class="card-body">
+
+
+								<div class="row">
+
+									<div class="col-6 text-start">
+										<h6 class="card-title">{{suggestion.user}}</h5>
+										<p class="card-text text-truncate">{{suggestion.bio}}</p>
+
+
+									</div>
+									<div class="col-6 pt-2">
+										<a href="/social/profile/{{suggestion.user}}" class="btn btn-primary"> View User </a>
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+				</li>
+				{% endfor %}
+
+
+
+			</ul>
+		</div>
+
+	</div>
+
+</div>
+{% endblock middlecontent %}
+
+{% block javascript_custom %}
+<!-- <script src="{% static 'social/assets/js/tippy.all.min.js' %}"></script> -->
+<!-- <script src="{% static 'social/assets/js/jquery-3.3.1.min.js' %}"></script> -->
+<!-- <script src="{% static 'social/assets/js/uikit.js' %}"></script> -->
+<!-- <script src="{% static 'social/assets/js/simplebar.js' %}"></script> -->
+<!-- <script src="{% static 'social/assets/js/custom.js' %}"></script> -->
+
+<!-- <script src="{% static 'social/../../unpkg.com/ionicons%405.2.3/dist/ionicons.js' %}"></script> -->
+{% endblock javascript_custom %}

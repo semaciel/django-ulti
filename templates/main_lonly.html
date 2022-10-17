@@ -1,0 +1,17 @@
+{% extends '_base.html' %}
+
+{% block content %}
+  <!-- Menu NONE -->
+
+  <!-- mainfull Content -->
+  <div class="container-fluid">
+  {% block mainfullcontent %}
+    <div class="row text-center">
+      <div class="col-md-3">{% block main_l_content %}main_l_content{% endblock main_l_content %}</div>
+      <div class="col-md-9">{% block main_mid_content %}main_mid_content{% endblock main_mid_content %}</div>
+    </div>
+  {% endblock mainfullcontent %}
+  </div>
+
+  <!-- Footer NONE -->
+{% endblock content %}

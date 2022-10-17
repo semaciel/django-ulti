@@ -1,0 +1,39 @@
+{% extends "card.html" %}
+{% load django_bootstrap5 %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block title %}Edit Todo{% endblock title %}
+{% block mainnavtodoactive %}active{% endblock mainnavtodoactive %}
+{% block cardheadercontent %}Edit Todo{% endblock cardheadercontent %}
+
+
+{% block breadcrumb %}
+<!-- Breadcrumb -->
+<div class="container-fluid px-5">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'todo:home' %}">Home</a></li>
+		<li class="breadcrumb-item active" aria-current="page">Edit - Task {{todo.id}} by {{user.username}}</b></li>
+    </ol>
+  </nav>
+</div>
+
+{% endblock breadcrumb %}
+
+{% block cardbodycontent %}
+<form class="form" method="POST" action={% url 'todo:todo-edit' todo.id   %}>
+	{% csrf_token %}
+
+
+  {{form|crispy}}
+
+
+	{% endblock cardbodycontent %}
+
+
+	{% block cardfootercontent %}
+	<input type="submit" class="btn btn-success" value="Save">
+  <a class="btn btn-success" role="button" href="{% url 'todo:create-todo' %}">Add new</a>
+</form>
+{% endblock cardfootercontent %}

@@ -1,0 +1,20 @@
+/* :root {
+  --sm-color1: #000000;
+  --sm-color2: #ffffff;
+  --sm-color3: #ff0000;
+  --sm-color4: #0000ff;
+  --bs-primary: #0000ff;
+} */
+
+.border-primary {
+    border-color: #ff0000!important;
+}
+
+.border-dark {
+    border-color: #00ff00!important;
+}
+
+
+main > .container {
+  padding: 60px 15px 0;
+}

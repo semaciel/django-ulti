@@ -1,0 +1,47 @@
+{% extends "card.html" %}
+{% load django_bootstrap5 %}
+{% load account %}
+{% load i18n %}
+
+{% block title %}Confirm E-mail Address{% endblock title %}
+{% block mainnavaccountactive %}active{% endblock mainnavaccountactive %}
+
+
+{% block cardheadercontent %}
+Confirm E-mail Address
+{% endblock cardheadercontent %}
+
+
+
+{% block cardbodycontent %}
+{% if confirmation %}
+
+{% user_display confirmation.email_address.user as user_display %}
+
+<p class="card-text">{% blocktrans with confirmation.email_address.email as email %}Please confirm that <a href="mailto:{{ email }}">{{ email }}</a> is an e-mail address for user {{ user_display }}.{% endblocktrans %}</p>
+
+
+
+{% else %}
+
+{% url 'account_email' as email_url %}
+
+<p class="card-text">{% blocktrans %}This e-mail confirmation link expired or is invalid. Please <a href="{{ email_url }}">issue a new e-mail confirmation request</a>.{% endblocktrans %}</p>
+
+{% endif %}
+{% endblock cardbodycontent %}
+
+
+
+{% block cardfootercontent %}
+<form method="post" class="my-0" action="{% url 'account_confirm_email' confirmation.key %}">
+{% csrf_token %}
+    {% trans 'Confirm' as button_text %}
+    {% bootstrap_button button_text button_type="submit" extra_classes="secondaryAction mx-0 btn-success" %}
+</form>
+{% endblock cardfootercontent %}
+
+
+
+
+

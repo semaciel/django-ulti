@@ -1,0 +1,45 @@
+{% extends 'middle.html' %}
+{% load static %}
+
+
+{% block style %}
+{% endblock style %}
+
+
+
+{% block submenu %}
+{% endblock submenu %}
+
+{% block breadcrumb %}
+{% endblock breadcrumb %}
+
+{% block middlecontent %}
+<div class="row justify-content-center">
+	<div class="col-md-6 py-3">
+		<div class="card">
+			{% block customcardcontent %}
+			<div class="card-header">
+				{% block cardheadercontent %}
+				Card Title
+				{% endblock cardheadercontent %}
+			</div>
+			<div class="card-body">
+				{% block cardbodycontent %}
+				This is some text within a card body.
+				{% endblock cardbodycontent %}
+			</div>
+			{% block cardlistcontent %}
+			{% endblock cardlistcontent %}
+			<div class="card-footer">
+				{% block cardfootercontent %}
+				Card footer
+				{% endblock cardfootercontent %}
+			</div>
+			{% endblock customcardcontent %}
+		</div>
+	</div>
+</div>
+{% endblock middlecontent %}
+
+{% block javascript_custom %}
+{% endblock javascript_custom %}

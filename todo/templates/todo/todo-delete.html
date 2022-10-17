@@ -1,0 +1,36 @@
+{% extends "card.html" %}
+{% load django_bootstrap5 %}
+
+{% load i18n %}
+
+{% block title %}Delete Todo?{% endblock title %}
+{% block mainnavtodoactive %}active{% endblock mainnavtodoactive %}
+{% block cardheadercontent %}Delete Todo?{% endblock cardheadercontent %}
+
+{% block breadcrumb %}
+<!-- Breadcrumb -->
+<div class="container-fluid px-5">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'todo:home' %}">Home</a></li>
+		<li class="breadcrumb-item active" aria-current="page">Delete - Task {{todo.id}} by {{user.username}}</b></li>
+    </ol>
+  </nav>
+</div>
+
+{% endblock breadcrumb %}
+
+{% block cardbodycontent %}
+<form method="POST"  action={% url 'todo:todo-delete' todo.id %} class="form">
+	{% csrf_token %}
+	<p class="card-text">Are you sure you want to delete this todo?</p>
+	
+	
+	{% endblock cardbodycontent %}
+	
+	
+	{% block cardfootercontent %}
+	<input type="submit" class="btn btn-success" value="YES">
+	<a class="btn btn-danger" href={% url 'todo:todo' todo.id %} role="button">Cancel</a>
+</form>
+{% endblock cardfootercontent %}

@@ -1,0 +1,161 @@
+{% extends '_header.html' %}
+
+{% block headercontent %}
+<!-- Fixed navbar -->
+{% load account %}
+<!-- Fixed navbar -->
+<nav class="navbar navbar-expand-md fixed-top bg-light text-dark">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
+
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a class="nav-link {% block mainnavhomeactive %}{% endblock mainnavhomeactive %}" aria-current="page" href="{% url 'core:home' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% block mainnavblogactive %}{% endblock mainnavblogactive %}" href="{% url 'blog:home' %}">Blog</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% block mainnavsocialactive %}{% endblock mainnavsocialactive %}" href="{% url 'social:index' %}">Social</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% block mainnavforumactive %}{% endblock mainnavforumactive %}" href="#">Forum</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% block mainnavwikiactive %}{% endblock mainnavwikiactive %}" href="#">Wiki</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% block mainnavtodoactive %}{% endblock mainnavtodoactive %}" href="{% url 'todo:home' %}">To-Do</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle {% block mainnavbizactive %}{% endblock mainnavbizactive %}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            BizTools
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Tool 1</a></li>
+            <li><a class="dropdown-item" href="#">Tool 2</a></li>
+            <li><a class="dropdown-item" href="#">Tool 3</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Tool 4</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link {% block mainnavetfmindactive %}{% endblock mainnavetfmindactive %}" href="#">ETF Mind</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle {% block mainnavfintoolsactive %}{% endblock mainnavfintoolsactive %}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            FinTools
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Tool 1</a></li>
+            <li><a class="dropdown-item" href="#">Tool 2</a></li>
+            <li><a class="dropdown-item" href="#">Tool 3</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Tool 4</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle {% block mainnavmediaactive %}{% endblock mainnavmediaactive %}" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Media/Radio Tools
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{% url 'music:index' %}">Music Player</a></li>
+            <li><a class="dropdown-item" href="{% url 'radio:index' %}">Radio</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Tool 2</a></li>
+            <li><a class="dropdown-item" href="#">Tool 3</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link {% block mainnavaboutactive %}{% endblock mainnavaboutactive %}" href="{% url 'core:about' %}">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% block mainnavcontactactive %}{% endblock mainnavcontactactive %}" href="{% url 'core:contact' %}">Contact Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% block mainnavsitemapactive %}{% endblock mainnavsitemapactive %}" href="#">Site Map</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% block mainnavadminactive %}{% endblock mainnavadminactive %}" href="{% url "admin:index" %}">Admin Site</a>
+        </li>
+
+        {% if user.is_authenticated %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle {% block mainnavaccountactive %}{% endblock mainnavaccountactive %}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Hi {% user_display user %}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{% url 'account_email' %}">Change E-mail</a></li>
+            <li><a class="dropdown-item" href="{% url 'account_change_password' %}">Change Password</a></li>
+            <li><a class="dropdown-item" href="{% url 'account_set_password' %}">Set Password</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a></li>
+            <li><hr class="dropdown-divider"></li>
+            {% comment %}<!-- <li><a class="dropdown-item" href="{% url 'account_confirm_email' %}">Email Confirm</a></li> -->{% endcomment %}
+            <li><a class="dropdown-item" href="{% url 'account_reset_password' %}">Reset Password</a></li>
+            <li><a class="dropdown-item" href="{% url 'account_reset_password_done' %}">Reset Password DONE</a></li>
+            {% comment %}<!-- <li><a class="dropdown-item" href="{% url 'account_reset_password_from_key' %}">Reset Password FromKey</a></li> -->{% endcomment %}
+            <li><a class="dropdown-item" href="{% url 'account_reset_password_from_key_done' %}">Reset Password FromKey Done</a></li>
+            <li><a class="dropdown-item" href="{% url 'account_inactive' %}">Inactive</a></li>
+            <li><a class="dropdown-item" href="{% url 'account_email_verification_sent' %}">verification Sent</a></li>
+          </ul>
+        </li>inactive
+        {% else %}
+        <li class="nav-item">
+          <button type="button" class="btn btn-outline-success me-2"><a href="{% url 'account_login' %}">Log In</a></button>
+        </li>
+        <li class="nav-item">
+          <button type="button" class="btn btn-outline-warning me-2"><a href="{% url 'account_signup' %}">Sign-up</a></button>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- SubMenu -->
+<div class="row border-bottom border-top py-1" style="margin-top: 3.5rem !important;">
+  <div class="col-md-3">
+    <form class="d-flex mb-0 ms-2" role="search">
+      <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+  </div>
+  <div class="col col-md-9">
+    <nav class="nav nav-pills">
+    {% block submenu %}
+    {% endblock submenu %}
+    </nav>
+  </div>
+
+</div>
+
+
+{% block breadcrumb %}
+
+{% endblock breadcrumb %}
+
+
+
+<main class="pb-3">
+  <!-- Content -->
+  {% block content %}
+  <p>Default content...</p>
+  {% endblock content %}
+</main>
+
+<!-- Footer -->
+{# include footer #}
+{% include "_footer.html" %}
+
+
+{% endblock headercontent %}

@@ -1,0 +1,93 @@
+{% extends 'middle.html' %}
+{% load static %}
+{% block title %}Social - Settings{% endblock title %}
+
+{% block style %}
+<!-- <link rel="stylesheet" href="{% static 'social/assets/css/icons.css' %}"> -->
+<!-- <link rel="stylesheet" href="{% static 'social/assets/css/uikit.css' %}"> -->
+<!-- <link rel="stylesheet" href="{% static 'social/assets/css/style.css' %}"> -->
+<!-- <link rel="stylesheet" href="{% static 'social/assets/css/tailwind.css' %}"> -->
+
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+{% endblock style %}
+
+{% block mainnavsocialactive %}active{% endblock mainnavsocialactive %}
+
+{% block submenu %}
+{% endblock submenu %}
+
+{% block breadcrumb %}
+<!-- Breadcrumb -->
+<div class="container-fluid px-5">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'social:index' %}">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Account Setting for <b>{{user.username}}</b></li>
+    </ol>
+  </nav>
+</div>
+
+{% endblock breadcrumb %}
+
+{% block middlecontent %}
+
+  <form action="" method="POST" enctype="multipart/form-data" class='mb-0'>
+    {% csrf_token %}
+    <div class="card mw-50">
+      <div class="card-header">
+        Profile Settings
+      </div>
+      <img style="height: 400px; max-width: 400px;" class="rounded-circle card-img-top h-auto w-100 mx-auto px-5" src="{{user_profile.profile_img.url}}"/>
+
+      <div class="card-body">
+        <h5 class="card-title">Bio</h5>
+        <p class="card-text">{{user_profile.profile_bio}}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <h5 class="card-title"> Profile Image</h5>
+          <div class="mb-3">
+            <input class="form-control" type="file" name="image">
+          </div>
+        </li>
+        <li class="list-group-item">
+          <h5 class="card-title"> Banner Image (Need FIX)</h5>
+          <div class="mb-3">
+            <input class="form-control" type="file" name="bannerimage">
+          </div>
+        </li>
+        <li class="list-group-item">
+          <h5 class="card-title">Update Bio</h5>
+          <div class="form-floating">
+            <textarea class="form-control" placeholder="{{user_profile.profile_bio}}" id="about" name="bio" style="height: 200px"></textarea>
+            <label for="floatingTextarea" class="form-label text-muted fs-6 fw-light">Update new bio here..</label>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <h5 class="card-title">Location</h5>
+          <div class="form-floating">
+            <input class="form-control" placeholder="{{user_profile.location}}" id="about" name="location"></textarea>
+            <label for="floatingTextarea" class="form-label text-muted fs-6 fw-light">{{user_profile.location}}</label>
+          </div>
+
+        </li>
+      </ul>
+
+      <div class="card-footer text-end">
+        <a class="btn btn-danger" href="#" role="button">Cancel</a>
+        <button type="submit" class="btn btn-primary"> Save </button>
+      </div>
+    </div>
+  </form>
+
+{% endblock middlecontent %}
+
+{% block javascript_custom %}
+<!-- <script src="{% static 'social/assets/js/tippy.all.min.js' %}"></script> -->
+<!-- <script src="{% static 'social/assets/js/jquery-3.3.1.min.js' %}"></script> -->
+<!-- <script src="{% static 'social/assets/js/uikit.js' %}"></script> -->
+<!-- <script src="{% static 'social/assets/js/simplebar.js' %}"></script> -->
+<!-- <script src="{% static 'social/assets/js/custom.js' %}"></script> -->
+
+<!-- <script src="{% static 'social/../../unpkg.com/ionicons%405.2.3/dist/ionicons.js' %}"></script> -->
+{% endblock javascript_custom %}

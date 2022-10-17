@@ -1,0 +1,28 @@
+{% extends "card.html" %}
+{% load django_bootstrap5 %}
+
+{% load i18n %}
+
+{% block title %}Sign Up Closed{% endblock title %}
+{% block mainnavaccountactive %}active{% endblock mainnavaccountactive %}
+
+
+{% block cardheadercontent %}
+Sign Up Closed
+{% endblock cardheadercontent %}
+
+
+
+{% block cardbodycontent %}
+<p class="card-text">
+
+
+{% trans "We are sorry, but the sign up is currently closed." %}
+	</p>
+{% endblock cardbodycontent %}
+
+
+
+{% block cardfootercontent %}
+&nbsp;
+{% endblock cardfootercontent %}
