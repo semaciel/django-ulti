@@ -1,0 +1,2 @@
+export SECRET_KEY="<PUT KEY HERE>"
+#export DJANGO_SETTINGS_MODULE=django-ulti.settings
