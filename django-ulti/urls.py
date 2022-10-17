@@ -1,4 +1,4 @@
-"""homeserver URL Configuration
+"""django-ulti URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
@@ -36,6 +36,6 @@ urlpatterns = [
 urlpatterns = urlpatterns+static(settings.MEDIA_URL,
                                  document_root=settings.MEDIA_ROOT)
 
-handler404 = 'homeserver.views.custom_error_404'
-handler500 = 'homeserver.views.custom_error_500'
-handler403 = 'homeserver.views.custom_error_403'
+handler404 = 'django-ulti.views.custom_error_404'
+handler500 = 'django-ulti.views.custom_error_500'
+handler403 = 'django-ulti.views.custom_error_403'
